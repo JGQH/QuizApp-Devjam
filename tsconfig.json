@@ -17,7 +17,12 @@
     "baseUrl": "./",
     "paths": {
       "@Components/*": [
-        "components/Header/*"
+        "components/Header/*",
+        "components/Select/*",
+        "components/Button/*"
+      ],
+      "@Hooks/*": [
+        "hooks/*"
       ]
     }
   },
