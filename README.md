@@ -26,5 +26,5 @@ It aims to let the user select a topic and the difficulty of the quiz, and then 
 ## To-Do
 - Dark Mode
 - Styling
-- Display of questions
+- Quiz functionality
 - Final score

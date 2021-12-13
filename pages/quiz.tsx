@@ -1,53 +1,33 @@
 import fetcher from '@Lib/fetcher'
 import { categoryList, difficultyList, validateTags } from '@Lib/quizData'
+import useQuiz, { QuizApiResponse } from '@Hooks/useQuiz'
 import type { GetServerSidePropsContext } from 'next'
+import Button from '@Components/Button'
 
 export default function Quiz({ data }:{ data:QuizApiResponse[] }) {
+  const [ question, answers, multipleAnswers, nextQuestion, isOver ] = useQuiz(data)
+
   return (
-    <div>
-      {data.map((question, key1) => (
-        <div key={key1}>
-          <h1>{question.question}</h1>
-          <ul>
-            {Object.keys(question.answers).map((answer, key2) => (
-              <li key={key2}>
-                {question.answers[answer as keyof typeof question.answers]}
-                {/* All of this will be replaced by different objects, this is just for testing */}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+    <div className='justify-self-center self-center container'>
+      <div className='font-bold text-center'>
+        <h1 className='sm:text-5xl font-bold text-center'>Question:</h1>
+        <h1 className='sm:text-6xl text-3xl font-bold text-center'>{question}</h1>
+        {multipleAnswers && <p>Note: Multiple answers allowed</p>}
+      </div>
+      <div className='flex flex-col sm:flex-row flex-wrap p-3 gap-3'>
+        {answers.map((answer, key) => (
+          <div key={key} className='basis-1/3 grow text-center'>
+            {answer}
+          </div>
+        ))}
+      </div>
+      <div className='text-center p-3'>
+        <Button onClick={nextQuestion} disabled={isOver}>
+          Next Question
+        </Button>
+      </div>
     </div>
   )
-}
-
-interface QuizApiResponse {
-  id: number
-  question: string
-  description: string | null
-  answers: {
-    answer_a: string | null
-    answer_b: string | null
-    answer_c: string | null
-    answer_d: string | null
-    answer_e: string | null
-    answer_f: string | null
-  }
-  multiple_correct_answers: boolean
-  correct_answers: {
-    answer_a_correct: 'true'|'false'
-    answer_b_correct: 'true'|'false'
-    answer_c_correct: 'true'|'false'
-    answer_d_correct: 'true'|'false'
-    answer_e_correct: 'true'|'false'
-    answer_f_correct: 'true'|'false'
-  }
-  explanation: string | null
-  tip: null
-  tags: { name: string }[]
-  category: string
-  difficulty: string
 }
 
 export const getServerSideProps = async ({ query }:GetServerSidePropsContext) => {
