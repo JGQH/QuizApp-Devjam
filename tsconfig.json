@@ -19,7 +19,8 @@
       "@Components/*": [
         "components/Header/*",
         "components/Select/*",
-        "components/Button/*"
+        "components/Button/*",
+        "components/MultiSelect/*"
       ],
       "@Lib/*": [
         "lib/*"

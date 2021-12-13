@@ -4,11 +4,11 @@ import { ReactNode, useState } from 'react'
 interface OptionProps {
   children?: ReactNode
   index: number
-  selected:boolean
+  selected?:boolean
   onClick: (index:number) => void
 }
 
-function Option({ children, index, selected, onClick }:OptionProps) {
+export function Option({ children, index, selected = false, onClick }:OptionProps) {
   return (
     <button className={`block p-2 rounded-md w-full text-left ${selected ? 'bg-neutral-200' : 'bg-neutral-100'}`} onClick={() => onClick(index)}>
       {children}
@@ -16,22 +16,22 @@ function Option({ children, index, selected, onClick }:OptionProps) {
   )
 }
 
-interface SelectProps {
+export interface SelectProps {
   className?: string
   options?: string[]
-  onChange?: (index:number) => void
+  onChange?: (value:string) => void
 }
 
 export default function Select({ className = '', options = [''], onChange }:SelectProps) {
   const [ index, setIndex ] = useState(0)
   const [ showed, toggleShowed ] = useToggle(false)
 
-  function handleChange(index:number) {
+  function handleChange(i:number) {
     if(onChange) {
-      onChange(index)
+      onChange(options[i])
     }
 
-    setIndex(index)
+    setIndex(i)
     toggleShowed()
   } 
 
@@ -39,7 +39,7 @@ export default function Select({ className = '', options = [''], onChange }:Sele
     <div className={`sm:w-fit relative ${className}`}>
       <div className='border border-cyan-400 hover:border-cyan-500 transition-all rounded-md p-2 flex flex-row justify-content-center content-center' onClick={() => toggleShowed()}>
         <p className='grow'>{options[index]}</p>
-        <button className='btn text-2xl px-2' style={{ 'aspectRatio': '1' }}>
+        <button className='btn px-2' style={{ 'aspectRatio': '1' }}>
           {showed ? '▲' : '▼'}
         </button>
       </div>

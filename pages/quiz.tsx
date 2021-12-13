@@ -1,5 +1,5 @@
 import fetcher from '@Lib/fetcher'
-import { categoryList, difficultyList } from '@Lib/quizData'
+import { categoryList, difficultyList, validateTags } from '@Lib/quizData'
 import type { GetServerSidePropsContext } from 'next'
 
 export default function Quiz({ data }:{ data:QuizApiResponse[] }) {
@@ -51,10 +51,10 @@ interface QuizApiResponse {
 }
 
 export const getServerSideProps = async ({ query }:GetServerSidePropsContext) => {
-  const { category, difficulty } = query
+  const { category, difficulty, tags } = query
 
-  if((typeof category === 'string') && (typeof difficulty === 'string')){ //If parameters exist and are strings
-    if(categoryList.includes(category) && difficultyList.includes(difficulty)) { //And said parameters are included in the lists
+  if((typeof category === 'string') && (typeof difficulty === 'string') && (typeof tags === 'string')){ //If parameters exist and are strings
+    if(categoryList.includes(category) && difficultyList.includes(difficulty) && validateTags(tags) ) { //And said parameters are included in the lists
       
       //Then proceed to fetch the quiz
       const params:{ [key:string] : string|number } = {
@@ -64,6 +64,7 @@ export const getServerSideProps = async ({ query }:GetServerSidePropsContext) =>
 
       if(category !== 'any') params['category'] = category
       if(difficulty !== 'any') params['difficulty'] = difficulty
+      if(tags !== 'none') params['tags'] = tags
 
       const data = await fetcher<QuizApiResponse[]>(process.env.QUIZ_API as string, params)
 
@@ -76,7 +77,7 @@ export const getServerSideProps = async ({ query }:GetServerSidePropsContext) =>
   return {
     props: {},
     redirect: {
-      destination: '/',
+      destination: '/?error=true',
       permanent: false
     }
   }

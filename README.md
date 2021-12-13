@@ -24,7 +24,6 @@ It aims to let the user select a topic and the difficulty of the quiz, and then 
 *** \*No images available, WIP\* ***
 
 ## To-Do
-- Quiz tags
 - Dark Mode
 - Styling
 - Display of questions

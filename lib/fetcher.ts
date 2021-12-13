@@ -5,6 +5,8 @@ export default async function fetcher<T>(url:string, params: { [key:string] : st
 
     const request = await fetch(destination, { method: 'GET' })
 
+    if(!request.ok) return undefined
+
     const data:T = await request.json()
 
     return data
