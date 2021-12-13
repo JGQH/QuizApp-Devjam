@@ -21,6 +21,9 @@
         "components/Select/*",
         "components/Button/*"
       ],
+      "@Lib/*": [
+        "lib/*"
+      ],
       "@Hooks/*": [
         "hooks/*"
       ]

@@ -24,9 +24,8 @@ It aims to let the user select a topic and the difficulty of the quiz, and then 
 *** \*No images available, WIP\* ***
 
 ## To-Do
-- Add Dark Mode
+- Quiz tags
+- Dark Mode
 - Styling
-- Topic and difficulty selector
-- SSR with API
 - Display of questions
 - Final score
