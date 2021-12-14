@@ -23,9 +23,9 @@ export default function CheckBox({ children, className, defaultValue = false, di
   }
 
   return (
-    <button className={`btn p-2 rounded-md bg-neutral-100 ${className} ${disabled && 'opacity-50 cursor-not-allowed'}`} onClick={handleChange} disabled={disabled}>
+    <button className={`btn p-2 rounded-md dark:bg-gray-800 bg-gray-100 ${className} ${disabled && 'opacity-50 cursor-not-allowed'}`} onClick={handleChange} disabled={disabled}>
       {children}
-      <span className='pl-3 text-cyan-400'>{value ? '⦿' : '◯'}</span>
+      <span className='pl-3 font-bold text-cyan-400 dark:text-cyan-500'>{value ? '⦿' : '◯'}</span>
     </button>
   )
 }

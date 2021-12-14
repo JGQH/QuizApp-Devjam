@@ -33,10 +33,10 @@ export default function MultiSelect({ className = '', options = [''], onChange }
 
   return (
     <div className={`sm:w-fit relative ${className}`}>
-      <div className='border border-cyan-400 hover:border-cyan-500 transition-all rounded-md p-2 flex flex-row justify-content-center content-center' onClick={() => toggleShowed()}>
+      <div className='border dark:border-cyan-600 dark:hover:border-cyan-700 border-cyan-400 hover:border-cyan-500 transition-all rounded-md p-2 flex flex-row justify-content-center content-center' onClick={() => toggleShowed()}>
         <div className='grow'>
           {list.map((option, key) => (
-            <button key={key} className='btn mr-2 p-2 text-white rounded-md bg-cyan-400 hover:bg-cyan-500 transition-all' onClick={e => {
+            <button key={key} className='btn mr-2 p-2 text-white rounded-md dark:bg-cyan-600 dark:hover:bg-cyan-700 bg-cyan-400 hover:bg-cyan-500 transition-all' onClick={e => {
               removeSelection(key)
               e.stopPropagation()
             }}>

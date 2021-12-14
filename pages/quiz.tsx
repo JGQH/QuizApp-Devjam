@@ -26,7 +26,7 @@ export default function Quiz({ data }:{ data:QuizApiResponse[] }) {
       </div>
       <div className='text-center p-3'>
         <Button onClick={() => answered ? submitAnswers() : nextQuestion()}>
-          {answered ? 'Submit Answers' : (page === 10 ? 'Next Question' : 'End Quiz')}
+          {answered ? 'Submit Answers' : (page === 10 ? 'End Quiz' : 'Next Question')}
         </Button>
       </div>
       {!answered &&
