@@ -21,6 +21,8 @@ It aims to let the user select a topic and the difficulty of the quiz, and then 
 ##### \*Data can be found in **package.json** file
 
 ## Illustrations
-*** \*No images available, WIP\* ***
+| Home | Quiz |
+|:---:|:---:|
+| ![Home](./readme/home.png) | ![Quiz](./readme/quiz.png) |
 
 ## To-Do
