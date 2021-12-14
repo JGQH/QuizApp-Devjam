@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import useList from './useList'
 import useToggle from './useToggle'
 
 export interface QuizApiResponse {
@@ -36,19 +37,54 @@ function notEmpty<T>(value:T | null): value is T {
 export default function useQuiz(data:QuizApiResponse[]) {
   const [ index, setIndex ] = useState(0)
   const [ isOver, doOver ] = useToggle(false)
+  const [ markedAnswers, { clear, push, remove } ] = useList<number>()
+  const [ questionState, setQuestionState ] = useState<'unanswered'|'correct'|'incorrect'>('unanswered')
 
   function nextQuestion() {
     const newIndex = index + 1
     if(data.length === newIndex){
       doOver()
     } else {
+      clear()
+      setQuestionState('unanswered')
       setIndex(newIndex)
+    }
+  }
+
+  function toggleAnswer(index:number, isMarked:boolean) {
+    if(isMarked) {
+      push(index)
+    }else{
+      remove(index)
     }
   }
 
   const currentQuestion = data[index]
 
-  const answers = Object.entries(currentQuestion.answers).map(([_, answer]) => answer).filter(notEmpty)
+  const options = Object.entries(currentQuestion.answers).map(([_, option]) => option).filter(notEmpty)
 
-  return [ currentQuestion.question, answers, currentQuestion.multiple_correct_answers === 'true', nextQuestion, isOver ] as const
+  function submitAnswers() {
+    const realAnswers = Object.entries(currentQuestion.correct_answers).map(([_, val]) => val)
+
+    const validAnswers = realAnswers.filter(a => a === 'true').length
+
+    //If all marked answers are true and match the amount of valid answers
+    if(markedAnswers.filter(i => realAnswers[i] === 'true').length === validAnswers) {
+      setQuestionState('correct')
+    } else {
+      setQuestionState('incorrect')
+    }
+  }
+
+  return [
+    index + 1,
+    currentQuestion.question,
+    options,
+    currentQuestion.multiple_correct_answers === 'true',
+    questionState,
+    isOver,
+    toggleAnswer,
+    submitAnswers,
+    nextQuestion
+  ] as const
 }

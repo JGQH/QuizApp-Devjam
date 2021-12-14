@@ -1,4 +1,5 @@
 import { Option, SelectProps } from '@Components/Select'
+import useList from '@Hooks/useList'
 import useToggle from '@Hooks/useToggle'
 import { useState } from 'react'
 
@@ -7,30 +8,27 @@ interface MultiSelectProps extends Omit<SelectProps, 'onChange'> {
 }
 
 export default function MultiSelect({ className = '', options = [''], onChange }: MultiSelectProps) {
-  const [ list, setList ] = useState<string[]>([])
+  const [ list, { push, pop }] = useList<string>()
   const [ showed, toggleShowed ] = useToggle(false)
 
   const remainingList = options.filter(option => !list.includes(option))
 
   function handleChange(index:number) {
-    const option = remainingList[index]
-    const newList = [...list, option]
+    const newList = push(remainingList[index])
 
     if(onChange) {
       onChange(newList)
     }
 
-    setList(newList)
     toggleShowed()
   }
 
   function removeSelection(index:number) {
-    const newList = list.filter((_, i) => i !== index)
+    const newList = pop(index)
     
     if(onChange) {
       onChange(newList)
     }
-    setList(newList)
   }
 
   return (

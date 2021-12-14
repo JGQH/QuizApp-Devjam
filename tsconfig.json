@@ -20,7 +20,8 @@
         "components/Header/*",
         "components/Select/*",
         "components/Button/*",
-        "components/MultiSelect/*"
+        "components/MultiSelect/*",
+        "components/CheckBox/*"
       ],
       "@Lib/*": [
         "lib/*"
