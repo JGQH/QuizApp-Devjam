@@ -1,3 +1,4 @@
+import { quizAnswers, quizOptions, quizValidateAnswers } from '@Lib/quizFilters'
 import { useState } from 'react'
 import useList from './useList'
 import useToggle from './useToggle'
@@ -61,15 +62,11 @@ export default function useQuiz(data:QuizApiResponse[]) {
 
   const currentQuestion = data[index]
 
-  const options = Object.entries(currentQuestion.answers).map(([_, option]) => option).filter(notEmpty)
+  const options = quizOptions(currentQuestion)
+  const correctAnswers = quizAnswers(currentQuestion)
 
   function submitAnswers() {
-    const realAnswers = Object.entries(currentQuestion.correct_answers).map(([_, val]) => val)
-
-    const validAnswers = realAnswers.filter(a => a === 'true').length
-
-    //If all marked answers are true and match the amount of valid answers
-    if(markedAnswers.filter(i => realAnswers[i] === 'true').length === validAnswers) {
+    if(quizValidateAnswers(markedAnswers, correctAnswers)) {
       setQuestionState('correct')
     } else {
       setQuestionState('incorrect')
@@ -79,6 +76,7 @@ export default function useQuiz(data:QuizApiResponse[]) {
   return [
     index + 1,
     data.length,
+    questionState === 'unanswered' ? [] : correctAnswers,
     currentQuestion.question,
     options,
     currentQuestion.multiple_correct_answers === 'true',

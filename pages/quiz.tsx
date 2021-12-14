@@ -6,7 +6,7 @@ import useQuiz, { QuizApiResponse } from '@Hooks/useQuiz'
 import type { GetServerSidePropsContext } from 'next'
 
 export default function Quiz({ data }:{ data:QuizApiResponse[] }) {
-  const [ page, totalPages, question, options, multipleAnswers, questionState, isOver, toggleAnswer, submitAnswers, nextQuestion ] = useQuiz(data)
+  const [ page, totalPages, answerList, question, options, multipleAnswers, questionState, isOver, toggleAnswer, submitAnswers, nextQuestion ] = useQuiz(data)
 
   const answered = questionState === 'unanswered'
 
@@ -15,11 +15,11 @@ export default function Quiz({ data }:{ data:QuizApiResponse[] }) {
       <div className='font-bold text-center'>
         <h1 className='sm:text-5xl font-bold text-center'>Question {page}/{totalPages}:</h1>
         <h1 className='sm:text-6xl text-2xl font-bold text-center'>{question}</h1>
-        {multipleAnswers && <p className='p-3'>Note: Multiple answers allowed</p>}
+        <p className='p-3'>({multipleAnswers ? 'Multiple Answer' : 'Single Answer'})</p>
       </div>
       <div className='flex flex-col sm:flex-row flex-wrap p-3 gap-3'>
         {options.map((option, key) => (
-          <CheckBox key={option} className='basis-1/3 grow' onChange={value => toggleAnswer(key, value)} disabled={!answered} >
+          <CheckBox key={option} className='basis-1/3 grow' onChange={value => toggleAnswer(key, value)} isCorrect={answerList.includes(key)} disabled={!answered} >
             {option}
           </CheckBox>
         ))}
