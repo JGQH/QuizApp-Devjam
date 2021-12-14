@@ -6,16 +6,16 @@ import useQuiz, { QuizApiResponse } from '@Hooks/useQuiz'
 import type { GetServerSidePropsContext } from 'next'
 
 export default function Quiz({ data }:{ data:QuizApiResponse[] }) {
-  const [ page, question, options, multipleAnswers, questionState, isOver, toggleAnswer, submitAnswers, nextQuestion ] = useQuiz(data)
+  const [ page, totalPages, question, options, multipleAnswers, questionState, isOver, toggleAnswer, submitAnswers, nextQuestion ] = useQuiz(data)
 
   const answered = questionState === 'unanswered'
 
   return (
     <div className='justify-self-center self-center container'>
       <div className='font-bold text-center'>
-        <h1 className='sm:text-5xl font-bold text-center'>Question {page}/10:</h1>
-        <h1 className='sm:text-6xl text-3xl font-bold text-center'>{question}</h1>
-        {multipleAnswers && <p>Note: Multiple answers allowed</p>}
+        <h1 className='sm:text-5xl font-bold text-center'>Question {page}/{totalPages}:</h1>
+        <h1 className='sm:text-6xl text-2xl font-bold text-center'>{question}</h1>
+        {multipleAnswers && <p className='p-3'>Note: Multiple answers allowed</p>}
       </div>
       <div className='flex flex-col sm:flex-row flex-wrap p-3 gap-3'>
         {options.map((option, key) => (
@@ -26,7 +26,7 @@ export default function Quiz({ data }:{ data:QuizApiResponse[] }) {
       </div>
       <div className='text-center p-3'>
         <Button onClick={() => answered ? submitAnswers() : nextQuestion()}>
-          {answered ? 'Submit Answers' : (page === 10 ? 'End Quiz' : 'Next Question')}
+          {answered ? 'Submit Answers' : (page === totalPages ? 'End Quiz' : 'Next Question')}
         </Button>
       </div>
       {!answered &&

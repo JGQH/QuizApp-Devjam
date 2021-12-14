@@ -78,6 +78,7 @@ export default function useQuiz(data:QuizApiResponse[]) {
 
   return [
     index + 1,
+    data.length,
     currentQuestion.question,
     options,
     currentQuestion.multiple_correct_answers === 'true',

@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <div id='theme-wrapper' className={darkMode ? 'dark' : ''}>
-      <div className='grid bg-white dark:bg-gray-900 dark:text-white gap-1 h-screen sm:text-2xl'>
+      <div className='grid bg-white dark:bg-gray-900 dark:text-white gap-1 py-3 min-h-screen sm:text-2xl'>
         <Header />
         <Button className='absolute top-1 right-1' onClick={() => setDarkMode(mode => !mode)}>
           {darkMode ? 'Dark' : 'Light'} mode
