@@ -38,6 +38,7 @@ function notEmpty<T>(value:T | null): value is T {
 export default function useQuiz(data:QuizApiResponse[]) {
   const [ index, setIndex ] = useState(0)
   const [ isOver, doOver ] = useToggle(false)
+  const [ score, setScore ] = useState(0)
   const [ markedAnswers, { clear, push, remove } ] = useList<number>()
   const [ questionState, setQuestionState ] = useState<'unanswered'|'correct'|'incorrect'>('unanswered')
 
@@ -67,6 +68,7 @@ export default function useQuiz(data:QuizApiResponse[]) {
 
   function submitAnswers() {
     if(quizValidateAnswers(markedAnswers, correctAnswers)) {
+      setScore(s => s + 1)
       setQuestionState('correct')
     } else {
       setQuestionState('incorrect')
@@ -81,6 +83,7 @@ export default function useQuiz(data:QuizApiResponse[]) {
     options,
     currentQuestion.multiple_correct_answers === 'true',
     questionState,
+    score,
     isOver,
     toggleAnswer,
     submitAnswers,

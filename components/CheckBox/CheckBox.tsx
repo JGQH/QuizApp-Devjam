@@ -36,7 +36,7 @@ export default function CheckBox({ children, className, defaultValue = false, di
   }
 
   const realClassName = [
-    'btn p-2 rounded-md dark:bg-gray-800 bg-gray-100 transition-all',
+    'btn select-none p-2 rounded-md dark:bg-gray-800 bg-gray-100 transition-all',
     className || '',
     disabled ? 'opacity-50 cursor-not-allowed' : '',
     getColoring(disabled, isCorrect, value)

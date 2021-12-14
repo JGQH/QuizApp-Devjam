@@ -32,7 +32,7 @@ export default function MultiSelect({ className = '', options = [''], onChange }
   }
 
   return (
-    <div className={`sm:w-fit relative ${className}`}>
+    <div className={`sm:w-fit relative select-none ${className}`}>
       <div className='border dark:border-cyan-600 dark:hover:border-cyan-700 border-cyan-400 hover:border-cyan-500 transition-all rounded-md p-2 flex flex-row justify-content-center content-center' onClick={() => toggleShowed()}>
         <div className='grow'>
           {list.map((option, key) => (

@@ -11,7 +11,7 @@ Simple app to solve quizes
 ## Introduction
 This project is a project from [app-ideas](https://github.com/rickywid/app-ideas).
 
-It aims to let the user select a topic and the difficulty of the quiz, and then displaying the requested quiz.
+It aims to let the user select a topic and the difficulty of the quiz, and then displaying the requested quiz. Questions are loaded using SSR from [QuizAPI](https://quizapi.io/), so its subject to what the API can do.
 
 ## Technologies\*
 - React v17.0.2
@@ -24,4 +24,3 @@ It aims to let the user select a topic and the difficulty of the quiz, and then 
 *** \*No images available, WIP\* ***
 
 ## To-Do
-- Final score

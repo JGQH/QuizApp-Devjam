@@ -36,7 +36,7 @@ export default function Select({ className = '', options = [''], onChange }:Sele
   } 
 
   return (
-    <div className={`sm:w-fit relative ${className}`}>
+    <div className={`sm:w-fit relative select-none ${className}`}>
       <div className='border dark:border-cyan-600 dark:hover:border-cyan-700 border-cyan-400 hover:border-cyan-500 transition-all rounded-md p-2 flex flex-row justify-content-center content-center' onClick={() => toggleShowed()}>
         <p className='grow capitalize'>{options[index]}</p>
         <button className='btn px-2' style={{ 'aspectRatio': '1' }}>
