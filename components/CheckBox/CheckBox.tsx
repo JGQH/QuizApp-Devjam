@@ -19,7 +19,7 @@ function getColoring(disabled:boolean, isCorrect:boolean|undefined, value:boolea
     //If it is wrong but it has been marked, return red color
     if(value) return 'bg-red-500 dark:bg-red-600'
   }
-  return ''
+  return 'bg-gray-100 dark:bg-gray-800'
 }
 
 export default function CheckBox({ children, className, defaultValue = false, disabled = false, isCorrect, onChange }:CheckBoxProps) {
@@ -36,7 +36,7 @@ export default function CheckBox({ children, className, defaultValue = false, di
   }
 
   const realClassName = [
-    'btn select-none p-2 rounded-md dark:bg-gray-800 bg-gray-100 transition-all',
+    'btn select-none p-2 rounded-md transition-all',
     className || '',
     disabled ? 'opacity-50 cursor-not-allowed' : '',
     getColoring(disabled, isCorrect, value)
