@@ -40,7 +40,7 @@ export default function Home() {
       </div>
       {error &&
       <div className='text-center italic pb-3'>
-        <p>There`&apos;`s been an error with the quiz, try a different combination of category and tags</p>
+        <p>There&apos;s been an error with the quiz, try a different combination of category and tags</p>
       </div>}
       <div className='text-center p-3'>
         <Link href={`/quiz?category=${category}&difficulty=${difficulty}&tags=${tags.length > 0 ? tags.join(',') : 'none'}`}>

@@ -46,11 +46,13 @@ export default function useQuiz(data:QuizApiResponse[]) {
     const newIndex = index + 1
     if(data.length === newIndex){
       doOver()
-    } else {
-      clear()
-      setQuestionState('unanswered')
-      setIndex(newIndex)
+      return false
     }
+
+    clear()
+    setQuestionState('unanswered')
+    setIndex(newIndex)
+    return true
   }
 
   function toggleAnswer(index:number, isMarked:boolean) {

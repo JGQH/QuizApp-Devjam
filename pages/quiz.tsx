@@ -5,12 +5,26 @@ import { categoryList, difficultyList, validateTags } from '@Lib/quizData'
 import useQuiz, { QuizApiResponse } from '@Hooks/useQuiz'
 import type { GetServerSidePropsContext } from 'next'
 import Link from 'next/link'
+import useTimer from '@Hooks/useTimer'
 
 export default function Quiz({ data }:{ data:QuizApiResponse[] }) {
   const [ page, totalPages, answerList, question, options, multipleAnswers, questionState, score, isOver, toggleAnswer, submitAnswers, nextQuestion ] = useQuiz(data)
 
+  const [ timeElapsed, { end } ] = useTimer(true)
+
   const percentage = Math.round(100 * score / totalPages)
   const answered = questionState === 'unanswered'
+
+  function handleClick() {
+    if(answered) {
+      submitAnswers()
+      return
+    }
+
+    if(!nextQuestion()) {
+      end()
+    }
+  }
 
   return (
     <div className='justify-self-center self-center container'>
@@ -18,8 +32,16 @@ export default function Quiz({ data }:{ data:QuizApiResponse[] }) {
       <>
         <div className='font-bold text-center'>
           <h1 className='sm:text-5xl'>Finished!</h1>
-          <h1 className='sm:text-6xl text-3xl'>Score: {score}/{totalPages}</h1>
-          <p className='p-3'>Percentage: {percentage}%</p>
+          <h1 className='sm:text-6xl text-3xl'>Score: {score}/{totalPages} ({percentage}%)</h1>
+          <p className='p-3'>
+            {(percentage >= 50 ?
+            'Congratulations, you passed the test!'
+            :
+            'Hope you do better next time!')}
+          </p>
+          <p className='p-3'>
+            Total time: {timeElapsed}
+          </p>
         </div>
         <div className='text-center p-3'>
           <Link href={'/'}>
@@ -46,7 +68,7 @@ export default function Quiz({ data }:{ data:QuizApiResponse[] }) {
           ))}
         </div>
         <div className='text-center p-3'>
-          <Button onClick={() => answered ? submitAnswers() : nextQuestion()}>
+          <Button onClick={handleClick}>
             {answered ? 'Submit Answers' : (page === totalPages ? 'End Quiz' : 'Next Question')}
           </Button>
         </div>
