@@ -26,4 +26,3 @@ It aims to let the user select a topic and the difficulty of the quiz, and then 
 | ![Home](./readme/home.png) | ![Quiz](./readme/quiz.png) |
 
 ## To-Do
-- Split *pages/quiz.tsx* logic into smaller components

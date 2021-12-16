@@ -21,7 +21,8 @@
         "components/Select/*",
         "components/Button/*",
         "components/MultiSelect/*",
-        "components/CheckBox/*"
+        "components/CheckBox/*",
+        "components/QuizHandling/*"
       ],
       "@Lib/*": [
         "lib/*"
